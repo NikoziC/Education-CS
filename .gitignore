@@ -1,1 +1,13 @@
-.vs
+.vs/
+*.vcxproj.user
+
+*.exe
+*.out
+*.app
+*.o
+*.obj
+*.bin
+
+Debug/
+Release/
+x64/
