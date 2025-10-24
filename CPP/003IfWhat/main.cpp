@@ -15,6 +15,12 @@ int main()
         std::cout << "y/n? ";
         std::cin >> answer;
 
+        // Проверяем ответ на наличие символов
+        if (answer.empty()) {
+            std::cout << "WHAT DO YOU MEAN???\n";
+            continue;
+        }
+
         // Преобразуем ответ к нижнему регистру
         std::string lower_answer = answer;
         std::transform(lower_answer.begin(), lower_answer.end(), lower_answer.begin(), ::tolower);
