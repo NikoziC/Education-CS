@@ -1,43 +1,38 @@
 #include <iostream>
-#include <limits> // для numeric_limits
-#include <algorithm> // для std::transform
-#include <cctype>    // для ::tolower
+#include <vector>
+#include <algorithm>
 
-int main()
-{
+bool isAnswerInList(const std::string& answer, const std::vector<std::string>& validAnswers) {
+    return std::find(validAnswers.begin(), validAnswers.end(), answer) != validAnswers.end();
+}
+
+int main() {
+    const std::vector<std::string> positiveAnswers = { "y", "yes", "yep", "yeah" };
+    const std::vector<std::string> negativeAnswers = { "n", "no", "nah", "nope" };
+
     std::string answer;
 
-    std::cout << "Welcome to the Richard's cave!\n";
-    std::cout << "Do you have a gift for our Lord?\n";
+    std::cout << "Welcome to the Richard's cave!\nDo you have a gift for our Lord?\n";
 
-    while (true)
-    {
+    while (true) {
         std::cout << "y/n? ";
-        std::cin >> answer;
+        std::getline(std::cin, answer);
 
-        // Проверяем ответ на наличие символов
-        if (answer.empty()) {
-            std::cout << "WHAT DO YOU MEAN???\n";
-            continue;
-        }
+        // Преобразование к нижнему регистру
+        std::transform(answer.begin(), answer.end(), answer.begin(), ::tolower);
 
-        // Преобразуем ответ к нижнему регистру
-        std::string lower_answer = answer;
-        std::transform(lower_answer.begin(), lower_answer.end(), lower_answer.begin(), ::tolower);
-
-        if (lower_answer == "y" || lower_answer == "yes" || lower_answer == "yep" || lower_answer == "yeah") {
+        if (isAnswerInList(answer, positiveAnswers)) {
             std::cout << "Hoho, My Darling, you're pretty smart.\n";
             break;
         }
-        else if (lower_answer == "n" || lower_answer == "no" || lower_answer == "nah" || lower_answer == "nope") {
+        else if (isAnswerInList(answer, negativeAnswers)) {
             std::cout << "~YOU ARE DEAD.~\n";
             break;
         }
         else {
             std::cout << "WHAT DO YOU MEAN???\n";
-            std::cin.clear(); // Очищаем флаги ошибок
-            std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n'); // Очищаем буфер ввода
         }
     }
+
     return 0;
 }
