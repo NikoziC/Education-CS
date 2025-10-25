@@ -1,6 +1,7 @@
 #include <iostream>
 #include <vector>
 #include <algorithm>
+#include <string>
 
 bool isAnswerInList(const std::string& answer, const std::vector<std::string>& validAnswers) {
     return std::find(validAnswers.begin(), validAnswers.end(), answer) != validAnswers.end();
